@@ -1,0 +1,52 @@
+{
+  "name": "react-ssr-boilerplate",
+  "version": "0.1.0",
+  "description": "A React boilerplate offering server-side rendering, code-splitting, hot reloading and more",
+  "main": "server/server.production.js",
+  "repository": {
+    "url": "https://github.com/viralganatra/react-ssr-boilerplate.git",
+    "type": "git"
+  },
+  "author": "Viral Ganatra",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "express": "^4.16.1",
+    "file-loader": "^1.1.6",
+    "mkdirp": "^0.5.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
+    "react-hot-loader": "^3.1.3",
+    "react-loadable": "^5.3.1",
+    "react-router-dom": "^4.2.2",
+    "rimraf": "^2.6.2",
+    "uglifyjs-webpack-plugin": "^1.1.8",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "webpack-dev-middleware": "^2.0.4",
+    "webpack-hot-middleware": "^2.21.0",
+    "webpack-hot-server-middleware": "^0.4.0"
+  },
+  "scripts": {
+    "start:dev": "yarn run webpack:dev && yarn run node:dev",
+    "webpack:dev": "yarn run clean:dev && yarn run webpack:client:dev && yarn run webpack:server:dev",
+    "node:dev": "node --inspect server/server.development.js",
+    "clean:dev": "rimraf client/development && rimraf server/development && mkdirp client/development && mkdirp server/development",
+    "webpack:client:dev": "webpack --config config/webpack/client.config.js --profile --json > client/development/client.development.stats.webpack.json --env.dev",
+    "webpack:server:dev": "webpack --config config/webpack/server.config.js --profile --json > server/development/server.development.stats.webpack.json --env.dev",
+    "start:prod": "yarn run webpack:prod && yarn run node:prod",
+    "webpack:prod": "yarn run clean:prod && yarn run webpack:client:prod && yarn run webpack:server:prod",
+    "node:prod": "node server/server.production.js",
+    "clean:prod": "rimraf client/production && rimraf server/production && mkdirp client/production && mkdirp server/production",
+    "webpack:client:prod": "webpack --config config/webpack/client.config.js --profile --json > client/production/client.production.stats.webpack.json --env.prod",
+    "webpack:server:prod": "webpack --config config/webpack/server.config.js --profile --json > server/production/server.production.stats.webpack.json --env.prod"
+  }
+}

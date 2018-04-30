@@ -1,0 +1,5 @@
+node_modules
+server/development
+server/production
+client/*
+yarn-error.log
