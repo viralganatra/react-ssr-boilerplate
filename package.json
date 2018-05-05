@@ -36,14 +36,14 @@
     "webpack-hot-server-middleware": "^0.4.0"
   },
   "scripts": {
-    "start:dev": "yarn run webpack:dev && yarn run node:dev",
-    "webpack:dev": "yarn run clean:dev && yarn run webpack:client:dev && yarn run webpack:server:dev",
+    "start:dev": "npm run webpack:dev && npm run node:dev",
+    "webpack:dev": "npm run clean:dev && npm run webpack:client:dev && npm run webpack:server:dev",
     "node:dev": "node --inspect server/server.development.js",
     "clean:dev": "rimraf client/development && rimraf server/development && mkdirp client/development && mkdirp server/development",
     "webpack:client:dev": "webpack --config config/webpack/client.config.js --profile --json > client/development/client.development.stats.webpack.json --env.dev",
     "webpack:server:dev": "webpack --config config/webpack/server.config.js --profile --json > server/development/server.development.stats.webpack.json --env.dev",
-    "start:prod": "yarn run webpack:prod && yarn run node:prod",
-    "webpack:prod": "yarn run clean:prod && yarn run webpack:client:prod && yarn run webpack:server:prod",
+    "start:prod": "npm run webpack:prod && npm run node:prod",
+    "webpack:prod": "npm run clean:prod && npm run webpack:client:prod && npm run webpack:server:prod",
     "node:prod": "node server/server.production.js",
     "clean:prod": "rimraf client/production && rimraf server/production && mkdirp client/production && mkdirp server/production",
     "webpack:client:prod": "webpack --config config/webpack/client.config.js --profile --json > client/production/client.production.stats.webpack.json --env.prod",
