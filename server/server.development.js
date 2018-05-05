@@ -1,6 +1,6 @@
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 if (!process.env.SERVER_HOST) process.env.SERVER_HOST = 'localhost';
-if (!process.env.SERVER_PORT) process.env.SERVER_PORT = 8080;
+if (!process.env.SERVER_PORT) process.env.SERVER_PORT = 3000;
 
 const express = require('express');
 const { preloadAll } = require('react-loadable');
