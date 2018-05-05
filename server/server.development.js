@@ -3,7 +3,6 @@ if (!process.env.SERVER_HOST) process.env.SERVER_HOST = 'localhost';
 if (!process.env.SERVER_PORT) process.env.SERVER_PORT = 3000;
 
 const express = require('express');
-const { preloadAll } = require('react-loadable');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');

@@ -3,7 +3,6 @@ if (!process.env.SERVER_HOST) process.env.SERVER_HOST = 'localhost';
 if (!process.env.SERVER_PORT) process.env.SERVER_PORT = 3000;
 
 const express = require('express');
-const { preloadAll } = require('react-loadable');
 
 const reactLoadableStats = require('../client/production/react.loadable.production.stats.webpack.json');
 const webpackClientConfig = require('../config/webpack/client.config')({
