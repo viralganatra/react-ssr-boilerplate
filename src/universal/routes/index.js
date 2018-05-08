@@ -5,7 +5,7 @@ import NotFoundPage from 'universal/pages/not-found-page';
 
 export const Routes = () => (
   <Switch>
-    <Route exact path={'/'} component={IndexPage} />
+    <Route exact path="/" component={IndexPage} />
     <Route component={NotFoundPage} />
   </Switch>
 );
