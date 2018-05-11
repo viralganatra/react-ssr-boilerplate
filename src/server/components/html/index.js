@@ -5,14 +5,12 @@ import { Capture } from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import faviconUrl from 'server/components/html/images/favicon.ico';
 
-export const Html = ({ children, clientStats, reactLoadableStats }) => {
+const Html = ({ children, clientStats, reactLoadableStats }) => {
   try {
     const modules = [];
 
     renderToString(
-      <Capture report={(moduleName) => modules.push(moduleName)}>
-        {children}
-      </Capture>,
+      <Capture report={(moduleName) => modules.push(moduleName)}>{children}</Capture>,
     );
 
     const helmet = Helmet.renderStatic();
@@ -31,7 +29,7 @@ export const Html = ({ children, clientStats, reactLoadableStats }) => {
     const scripts = bundles.filter((bundle) => bundle.file.endsWith('.js'));
 
     return (
-      <html>
+      <html lang="en">
         <head>
           <meta charSet="utf-8" />
           {meta}
@@ -42,9 +40,7 @@ export const Html = ({ children, clientStats, reactLoadableStats }) => {
           <div id={process.env.REACT_CONTAINER_ID}>{children}</div>
           <script src={`/dist/${bootstrapFile}`} />
           <script src={`/dist/${vendorFile}`} />
-          {scripts.map(({ file }) => (
-            <script key={file} src={`/dist/${file}`} />
-          ))}
+          {scripts.map(({ file }) => <script key={file} src={`/dist/${file}`} />)}
           <script src={`/dist/${mainFile}`} />
         </body>
       </html>

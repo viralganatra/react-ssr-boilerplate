@@ -10,7 +10,7 @@ const IndexPage = () => (
 
     <h1>Index Page</h1>
 
-    <Link to={'/not-found'}>
+    <Link to="/not-found" href="Not Found Page">
       <p>Go to Not Found Page</p>
     </Link>
   </section>

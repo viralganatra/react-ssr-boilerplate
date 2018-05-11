@@ -5,7 +5,7 @@ import { preloadAll } from 'react-loadable';
 import ServerApp from 'universal/app';
 import Html from 'server/components/html';
 
-export const serverSideRender = (stats) => async (req, res) => {
+const serverSideRender = (stats) => async (req, res) => {
   await preloadAll();
 
   const { clientStats, reactLoadableStats } = stats;

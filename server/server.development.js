@@ -17,10 +17,7 @@ const webpackServerConfig = require('../config/webpack/server.config')({
 });
 
 const webpackCompiler = webpack([webpackClientConfig, webpackServerConfig]);
-const [
-  webpackClientCompiler,
-  webpackServerCompiler,
-] = webpackCompiler.compilers;
+const [webpackClientCompiler] = webpackCompiler.compilers;
 
 const server = express();
 

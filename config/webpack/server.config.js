@@ -5,7 +5,6 @@ const resolvePath = (pathname) => path.resolve(__dirname, pathname);
 
 module.exports = (env) => {
   const ifDev = (...args) => (env.dev ? args : []);
-  const ifProd = (...args) => (env.prod ? args : []);
 
   const NODE_ENV = env.dev ? 'development' : 'production';
 
@@ -19,10 +18,7 @@ module.exports = (env) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
           options: {
-            plugins: [
-              'react-loadable/babel',
-              ...ifDev('react-hot-loader/babel'),
-            ],
+            plugins: ['react-loadable/babel', ...ifDev('react-hot-loader/babel')],
             presets: [
               [
                 'env',

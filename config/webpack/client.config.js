@@ -51,10 +51,7 @@ module.exports = (env) => {
                 'react',
                 'stage-0',
               ],
-              plugins: [
-                'react-loadable/babel',
-                ...ifDev('react-hot-loader/babel'),
-              ],
+              plugins: ['react-loadable/babel', ...ifDev('react-hot-loader/babel')],
             },
           },
         },

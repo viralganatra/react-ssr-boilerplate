@@ -17,8 +17,7 @@ const serverOutputPath = webpackServerConfig.output.path;
 
 const clientStats = require(`${clientOutputPath}/client.production.stats.webpack.json`);
 const serverStats = require(`${serverOutputPath}/server.production.stats.webpack.json`);
-const serverSideRender = require(`${serverOutputPath}/serverSideRender`)
-  .default;
+const serverSideRender = require(`${serverOutputPath}/serverSideRender`).default;
 
 const server = express();
 
@@ -33,9 +32,7 @@ server.listen(process.env.SERVER_PORT, (error) => {
     console.error(error);
   } else {
     console.log(
-      `Server listening at http://${process.env.SERVER_HOST}:${
-        process.env.SERVER_PORT
-      }`,
+      `Server listening at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`,
     );
   }
 });

@@ -4,7 +4,7 @@
 
 ## What is this?
 
-This is a boilerplate for rendering a React application both on the server and client. It includes support for code-splitting, routing, hot reloading and more.
+This is a boilerplate for rendering a React application both on the server and client. It includes support for code-splitting, routing, hot reloading, linting, auto code formatting and more.
 
 ## Quick Start
 
@@ -41,6 +41,7 @@ This boilerplate uses the following packages:
 * [React Hot Loader v4](https://github.com/gaearon/react-hot-loader) - Auto reloading of code in development
 * [React Helmet v5](https://github.com/nfl/react-helmet) - Enable easy changing of the title tag
 * [Express v4](https://github.com/expressjs/express) - Server-side rendering
+* [App Scripts v1](https://github.com/viralganatra/app-scripts) - ESLint and Prettier
 
 ## Structure
 
@@ -206,6 +207,10 @@ Similar to the ```webpack:client:*``` scripts, these run Webpack except for use 
 ### ```node:dev``` and ```node:prod```
 
 Run Node with Express on the server. In dev mode it runs Node with the ```---inspect``` flag to enable debugging.
+
+### App Scripts
+
+The app-scripts package configures ESLint and Prettier automatically. Prettier is configured so whenever a commit is made it will automatically run and format the staged files.
 
 ## Hot Reloading
 

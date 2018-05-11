@@ -1,6 +1,5 @@
 node_modules
+coverage
+client
 server/development
 server/production
-client/*
-yarn-error.log
-.eslintcache
