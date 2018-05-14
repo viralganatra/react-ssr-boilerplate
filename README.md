@@ -159,7 +159,7 @@ import IndexPage from 'universal/pages/index-page';
 import NotFoundPage from 'universal/pages/not-found-page';
 import ContactPage from 'universal/pages/contact-page';
 
-export const Routes = () => (
+const Routes = () => (
   <Switch>
     <Route exact path="/" component={IndexPage} />
     <Route exact path="/contact" component={ContactPage} />
