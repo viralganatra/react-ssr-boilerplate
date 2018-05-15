@@ -20,13 +20,6 @@ module.exports = (env) => {
         ),
         resolvePath('../../src/client/entry/index.js'),
       ],
-      vendor: [
-        'react',
-        'react-dom',
-        'react-helmet',
-        'react-loadable',
-        'react-router-dom',
-      ],
     },
     module: {
       rules: [
@@ -65,34 +58,30 @@ module.exports = (env) => {
       publicPath: '/dist/',
     },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ['bootstrap'],
-        filename: env.dev ? '[name].js' : '[name].[chunkhash].js',
-        chunkFilename: env.dev ? '[name].js' : '[name].[chunkhash].js',
-        minChunks: Infinity,
-      }),
       ...ifDev(new webpack.HotModuleReplacementPlugin()),
-      new webpack.NoEmitOnErrorsPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(NODE_ENV),
           REACT_CONTAINER_ID: JSON.stringify('react-container'),
         },
       }),
-      ...ifProd(
+      new ReactLoadablePlugin({
+        filename: `./client/${NODE_ENV}/react.loadable.${NODE_ENV}.stats.webpack.json`,
+      }),
+    ],
+    optimization: {
+      minimizer: [
         new UglifyJsPlugin({
           cache: true,
           sourceMap: true,
           parallel: 4,
         }),
-      ),
-      new ReactLoadablePlugin({
-        filename: `./client/${NODE_ENV}/react.loadable.${NODE_ENV}.stats.webpack.json`,
-      }),
-    ],
+      ],
+    },
     resolve: {
       modules: [resolvePath('../../src'), 'node_modules'],
     },
+    mode: NODE_ENV,
     target: 'web',
   };
 };

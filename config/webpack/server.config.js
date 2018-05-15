@@ -60,6 +60,7 @@ module.exports = (env) => {
     resolve: {
       modules: [resolvePath('../../src'), 'node_modules'],
     },
+    mode: NODE_ENV,
     target: 'node',
   };
 };
