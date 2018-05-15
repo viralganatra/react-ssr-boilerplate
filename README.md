@@ -4,7 +4,7 @@
 
 ## What is this?
 
-This is a boilerplate for rendering a React application both on the server and client. It includes support for code-splitting, routing, hot reloading, linting, auto code formatting and more.
+This is a boilerplate for rendering a React application both on the server and client. It includes support for code-splitting, routing, caching, hot reloading, linting, auto code formatting and more.
 
 ## Quick Start
 
@@ -29,6 +29,7 @@ And visit http://localhost:3000 in your browser to see your app.
 * [Adding Pages](#adding-pages)
 * [Scripts](#scripts)
 * [Hot Reloading](#hot-reloading)
+* [Caching](#caching)
 
 ## What is Included?
 
@@ -217,6 +218,24 @@ The app-scripts package configures ESLint and Prettier automatically. Prettier i
 Out of the box this boilerplate supports hot reloading of components in development mode using React Hot Loader. There should be no extra work for you to do, simply add new components and they will automatically update when you save your code. If you wish to modify the behaviour the entrypoint file is located at:
 
 ```src/client/entry/index.js```
+
+## Caching
+
+This boilerplate is configured to support auto file-caching in production. All generated files, or "chunks", from the Webpack configs have a unique hash as part of the name, e.g.
+
+```
+main.2de1ad15a6e381913e99.js
+```
+
+By default there are 3 Javascript files generated:
+
+* Runtime - this contains a reference to all possible chunks
+* Vendor - this contains all the libraries from ```node_modules```
+* Main - the main application code
+
+In addition, for each React Loadable dynamic import there is a file generated. So by default two; one for the index page and one for the not found page.
+
+The files are split this way to ensure the best possible performance. For example, if you only change code in the index page it would make no sense to re-download all the files the following time. Instead, when the start:prod script finishes only that particular file has the unique hash updated; the rest are left alone. This way the browser can continue to use the already cached files.
 
 ## License
 

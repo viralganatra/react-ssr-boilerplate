@@ -1,6 +1,6 @@
 {
   "name": "react-ssr-boilerplate",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A React boilerplate offering server-side rendering, code-splitting, hot reloading and more",
   "main": "server/server.production.js",
   "repository": {

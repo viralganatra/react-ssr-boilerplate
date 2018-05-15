@@ -77,6 +77,16 @@ module.exports = (env) => {
           parallel: 4,
         }),
       ],
+      runtimeChunk: 'single',
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all',
+          },
+        },
+      },
     },
     resolve: {
       modules: [resolvePath('../../src'), 'node_modules'],

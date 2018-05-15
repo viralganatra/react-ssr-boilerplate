@@ -18,9 +18,9 @@ const Html = ({ children, clientStats, reactLoadableStats }) => {
     const meta = helmet.meta.toComponent();
     const title = helmet.title.toComponent();
 
-    const { bootstrap, vendor, main } = clientStats.assetsByChunkName;
+    const { runtime, vendor, main } = clientStats.assetsByChunkName;
 
-    const bootstrapFile = Array.isArray(bootstrap) ? bootstrap[0] : bootstrap;
+    const runtimeFile = Array.isArray(runtime) ? runtime[0] : runtime;
     const vendorFile = Array.isArray(vendor) ? vendor[0] : vendor;
     const mainFile = Array.isArray(main) ? main[0] : main;
 
@@ -38,7 +38,7 @@ const Html = ({ children, clientStats, reactLoadableStats }) => {
         </head>
         <body>
           <div id={process.env.REACT_CONTAINER_ID}>{children}</div>
-          <script src={`/dist/${bootstrapFile}`} />
+          <script src={`/dist/${runtimeFile}`} />
           <script src={`/dist/${vendorFile}`} />
           {scripts.map(({ file }) => <script key={file} src={`/dist/${file}`} />)}
           <script src={`/dist/${mainFile}`} />
