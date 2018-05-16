@@ -36,7 +36,7 @@ And visit http://localhost:3000 in your browser to see your app.
 This boilerplate uses the following packages:
 
 * [Babel v6](https://github.com/babel/babel) - ES2015+ transpiling
-* [Webpack v3](https://github.com/webpack/webpack) - Bundling/async chunk loading/minification
+* [Webpack v4](https://github.com/webpack/webpack) - Bundling/async chunk loading/minification
 * [React Loadable v5](https://github.com/thejameskyle/react-loadable) - Component level code-splitting
 * [React Router v4](https://github.com/ReactTraining/react-router) - Navigation between pages
 * [React Hot Loader v4](https://github.com/gaearon/react-hot-loader) - Auto reloading of code in development
