@@ -42,9 +42,11 @@ module.exports = (env) => {
                   },
                 ],
                 'react',
-                'stage-0',
               ],
               plugins: [
+                'transform-class-properties',
+                'transform-object-rest-spread',
+                'syntax-dynamic-import',
                 'react-loadable/babel',
                 ...ifDev('react-hot-loader/babel'),
                 [
