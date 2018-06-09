@@ -26,6 +26,7 @@ const Html = ({ children, clientStats, reactLoadableStats }) => {
 
     const bundles = getBundles(reactLoadableStats, modules);
 
+    const styles = bundles.filter((bundle) => bundle.file.endsWith('.css'));
     const scripts = bundles.filter((bundle) => bundle.file.endsWith('.js'));
 
     return (
@@ -35,6 +36,9 @@ const Html = ({ children, clientStats, reactLoadableStats }) => {
           {meta}
           {title}
           <link rel="shortcut icon" href={faviconUrl} />
+          {styles.map(({ file }) => (
+            <link key={file} href={`/dist/${file}`} rel="stylesheet" />
+          ))}
         </head>
         <body>
           <div id={process.env.REACT_CONTAINER_ID}>{children}</div>

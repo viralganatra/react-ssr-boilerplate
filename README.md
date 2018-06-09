@@ -4,7 +4,7 @@
 
 ## What is this?
 
-This is a boilerplate for rendering a React application both on the server and client. It includes support for code-splitting, routing, caching, hot reloading, linting, auto code formatting and more.
+This is a boilerplate for rendering a React application both on the server and client. It includes support for code-splitting, routing, caching, css modules, sass support, hot reloading, linting, auto code formatting and more.
 
 ## Quick Start
 
@@ -27,6 +27,7 @@ And visit http://localhost:3000 in your browser to see your app.
 * [What is Included](#what-is-included)
 * [Structure](#structure)
 * [Adding Pages](#adding-pages)
+* [CSS Modules](#css-modules)
 * [Scripts](#scripts)
 * [Hot Reloading](#hot-reloading)
 * [Caching](#caching)
@@ -42,6 +43,8 @@ This boilerplate uses the following packages:
 * [React Hot Loader v4](https://github.com/gaearon/react-hot-loader) - Auto reloading of code in development
 * [React Helmet v5](https://github.com/nfl/react-helmet) - Enable easy changing of the title tag
 * [Express v4](https://github.com/expressjs/express) - Server-side rendering
+* [Babel Plugin React CSS Modules v3](https://github.com/gajus/babel-plugin-react-css-modules) - Use CSS Modules to load CSS scoped to a particular document
+* [Node Sass v4](https://github.com/sass/node-sass) - CSS Preprocessor
 * [App Scripts v1](https://github.com/viralganatra/app-scripts) - ESLint and Prettier
 
 ## Structure
@@ -175,6 +178,44 @@ export default Routes;
 
 Visit http://localhost:3000/contact to see your new page.
 
+## CSS Modules
+
+This boilerplate supports CSS Modules with the ability to optionally use Sass. A CSS file will be generated for every component that is split via React Loadable. To add new styles import the CSS/SCSS file into your React component and add the ```styleName``` prop (as opposed to ```className```) on the element. For example:
+
+### SCSS file
+```scss
+$bg: #03A9F4;
+$heading: orange;
+
+.container {
+  background-color: $bg;
+}
+.heading {
+  color: $heading;
+}
+```
+
+### React Component
+
+```jsx
+import React from 'react';
+import './index.scss';
+
+const IndexPage = () => (
+  <section styleName="container">
+    <h1 styleName="heading">Index Page</h1>
+  </section>
+);
+
+export default IndexPage;
+```
+
+The Babel plugin will automatically transform the styleName prop to class when the final HTML is rendered. In production mode CSS files will be generated, however in dev mode the ```style-loader``` from Webpack will be used to support hot module reloading.
+
+> In some cases HMR will fail when using CSS Modules, simply refresh the page to see the new updates.
+
+You can read the documentation of [React CSS Modules](https://github.com/gajus/babel-plugin-react-css-modules) for more information on how to use.
+
 ## Scripts
 
 ### Start Scripts
@@ -233,7 +274,7 @@ By default there are 3 Javascript files generated:
 * Vendor - this contains all the libraries from ```node_modules```
 * Main - the main application code
 
-In addition, for each React Loadable dynamic import there is a file generated. So by default two; one for the index page and one for the not found page.
+In addition, for each React Loadable dynamic import there is a file generated. So by default two; one for the index page and one for the not found page. Also, for each dynamic import if there are CSS/SCSS files it will generate bundled CSS files.
 
 The files are split this way to ensure the best possible performance. For example, if you only change code in the index page it would make no sense to re-download all the files the following time. Instead, when the start:prod script finishes only that particular file has the unique hash updated; the rest are left alone. This way the browser can continue to use the already cached files.
 

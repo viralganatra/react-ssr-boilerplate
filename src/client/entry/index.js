@@ -8,7 +8,7 @@ import ClientApp from 'universal/app';
 export const clientSideRender = async (
   Component = hot(module)(ClientApp),
   container = document.getElementById(process.env.REACT_CONTAINER_ID),
-  callback = () => console.log('clientSideRender'),
+  callback = () => {},
 ) => {
   await preloadReady();
 

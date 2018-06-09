@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const resolvePath = (pathname) => path.resolve(__dirname, pathname);
 
@@ -18,7 +19,23 @@ module.exports = (env) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
           options: {
-            plugins: ['react-loadable/babel', ...ifDev('react-hot-loader/babel')],
+            plugins: [
+              'react-loadable/babel',
+              ...ifDev('react-hot-loader/babel'),
+              [
+                'react-css-modules',
+                {
+                  generateScopedName: '[path]-[name]-[local]-[hash:base64:5]',
+                  removeImport: true,
+                  webpackHotModuleReloading: env.dev,
+                  filetypes: {
+                    '.scss': {
+                      syntax: 'postcss-scss',
+                    },
+                  },
+                },
+              ],
+            ],
             presets: [
               [
                 'env',
@@ -37,6 +54,28 @@ module.exports = (env) => {
         {
           test: /\.(gif|ico|jpg|png|svg)$/,
           loader: 'url-loader',
+        },
+        {
+          test: /\.s?css$/,
+          exclude: /node_modules/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                importLoader: 1,
+                localIdentName: '[path]-[name]-[local]-[hash:base64:5]',
+                modules: true,
+                sourceMap: true,
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
         },
       ],
     },

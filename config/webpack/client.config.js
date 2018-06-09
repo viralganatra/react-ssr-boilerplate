@@ -2,12 +2,12 @@ const webpack = require('webpack');
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const resolvePath = (pathname) => path.resolve(__dirname, pathname);
 
 module.exports = (env) => {
   const ifDev = (...args) => (env.dev ? args : []);
-  const ifProd = (...args) => (env.prod ? args : []);
 
   const NODE_ENV = env.dev ? 'development' : 'production';
 
@@ -44,9 +44,46 @@ module.exports = (env) => {
                 'react',
                 'stage-0',
               ],
-              plugins: ['react-loadable/babel', ...ifDev('react-hot-loader/babel')],
+              plugins: [
+                'react-loadable/babel',
+                ...ifDev('react-hot-loader/babel'),
+                [
+                  'react-css-modules',
+                  {
+                    generateScopedName: '[path]-[name]-[local]-[hash:base64:5]',
+                    webpackHotModuleReloading: env.dev,
+                    filetypes: {
+                      '.scss': {
+                        syntax: 'postcss-scss',
+                      },
+                    },
+                  },
+                ],
+              ],
             },
           },
+        },
+        {
+          test: /\.s?css$/,
+          exclude: /node_modules/,
+          use: [
+            env.dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                importLoader: 1,
+                localIdentName: '[path]-[name]-[local]-[hash:base64:5]',
+                modules: true,
+                sourceMap: true,
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
         },
       ],
     },
@@ -67,6 +104,10 @@ module.exports = (env) => {
       }),
       new ReactLoadablePlugin({
         filename: `./client/${NODE_ENV}/react.loadable.${NODE_ENV}.stats.webpack.json`,
+      }),
+      new MiniCssExtractPlugin({
+        filename: env.dev ? '[name].css' : '[name].[hash].css',
+        chunkFilename: env.dev ? '[id].css' : '[id].[hash].css',
       }),
     ],
     optimization: {
