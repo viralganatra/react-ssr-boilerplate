@@ -3,6 +3,7 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const resolvePath = (pathname) => path.resolve(__dirname, pathname);
 
@@ -118,6 +119,13 @@ module.exports = (env) => {
           cache: true,
           sourceMap: true,
           parallel: 4,
+        }),
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: {
+            map: {
+              inline: false,
+            },
+          },
         }),
       ],
       runtimeChunk: 'single',
