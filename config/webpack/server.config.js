@@ -59,7 +59,6 @@ module.exports = (env) => {
         },
         {
           test: /\.s?css$/,
-          exclude: /node_modules/,
           use: [
             MiniCssExtractPlugin.loader,
             {

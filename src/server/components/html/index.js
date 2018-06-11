@@ -21,13 +21,23 @@ const Html = ({ children, clientStats, reactLoadableStats }) => {
     const { runtime, vendor, main } = clientStats.assetsByChunkName;
 
     const runtimeFile = Array.isArray(runtime) ? runtime[0] : runtime;
-    const vendorFile = Array.isArray(vendor) ? vendor[0] : vendor;
+
+    const vendorFile = Array.isArray(runtime)
+      ? vendor.filter((file) => file.endsWith('.js'))[0]
+      : vendor;
+
     const mainFile = Array.isArray(main) ? main[0] : main;
+
+    const globalCSS = Array.isArray(vendor)
+      ? vendor.filter((file) => file.endsWith('.css')).map((file) => ({ file }))
+      : [];
 
     const bundles = getBundles(reactLoadableStats, modules);
 
     const styles = bundles.filter((bundle) => bundle.file.endsWith('.css'));
     const scripts = bundles.filter((bundle) => bundle.file.endsWith('.js'));
+
+    const allStyles = [...globalCSS, ...styles];
 
     return (
       <html lang="en">
@@ -36,7 +46,7 @@ const Html = ({ children, clientStats, reactLoadableStats }) => {
           {meta}
           {title}
           <link rel="shortcut icon" href={faviconUrl} />
-          {styles.map(({ file }) => (
+          {allStyles.map(({ file }) => (
             <link key={file} href={`/dist/${file}`} rel="stylesheet" />
           ))}
         </head>
